@@ -1,0 +1,17 @@
+---
+lang: typescript
+name: useToggle
+---
+
+```ts
+import React from 'react';
+
+const useToggle = (isOpen: boolean = false) => {
+  const [isVisible, setIsVisible] = React.useState(isOpen);
+  const toggle = () => React.useCallBack(() => setIsVisible((p) => !p));
+  return {
+    toggle,
+    isVisible,
+  };
+};
+```
