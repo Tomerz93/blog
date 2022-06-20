@@ -29,7 +29,7 @@ export async function getStaticProps({ params }: { params: { slug: string } }) {
 }
 
 const components = {
-  Image: (props) => {
+  Image: (props: any) => {
     return (
       <Image
         src={props.src}
@@ -48,8 +48,11 @@ interface PostProps {
 
 const PostHeader = ({ post }: { post: Post }) => {
   return (
-    <div className='text-center mb-8'>
-      <time dateTime={post.createdAt} className='text-xs text-gray-600 mb-1'>
+    <div className='text-center lg:text-left mb-8 border-b-emerald-700  border-b-2'>
+      <time
+        dateTime={post.createdAt}
+        className='text-s text-gray-600 block mb-1'
+      >
         {format(parseISO(post.createdAt), 'LLLL d, yyyy')}
       </time>
       <PageTitle isUppercase={false} text={post.title} />
@@ -64,25 +67,24 @@ const PostLayout: React.FC<PostProps> = ({ post, recommendedPosts }) => {
       <Head>
         <title>{post.title}</title>
       </Head>
-      <PostHeader post={post} />
       <article className='container'>
-        <section className=''>
-          <MDXContent components={{ ...components }} />
-        </section>
+        <PostHeader post={post} />
+        <MDXContent components={{ ...components }} />
         <div>
           {recommendedPosts.length > 0 && (
-            <h3 className='text-3xl'>
-              Maybe You will like{' '}
-              {recommendedPosts.length > 1 ? 'these posts' : 'this post'} as
-              well{' '}
-            </h3>
+            <>
+              <h3 className='text-3xl my-6'>
+                Maybe You will like{' '}
+                {recommendedPosts.length > 1 ? 'these posts' : 'this post'} as
+                well{' '}
+              </h3>
+              <div className='grid post-preview-container-small gap-4'>
+                {recommendedPosts.map((p) => (
+                  <PostPreviewSmall key={p.slug} {...p} />
+                ))}
+              </div>
+            </>
           )}
-
-          <div className='flex gap-4'>
-            {recommendedPosts?.map((p) => (
-              <PostPreviewSmall key={p.slug} {...p} />
-            ))}
-          </div>
         </div>
       </article>
     </>

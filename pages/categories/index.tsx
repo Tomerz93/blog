@@ -26,7 +26,7 @@ const Categories = ({
       {Object.entries(categoryMap).map(([categoryName, posts]) => (
         <div key={categoryName}>
           <Link href={`/categories/${categoryName}`}>
-            <a className='text-center md:text-left mb-4 block'>
+            <a className='text-center md:text-left text-xl mb-4 block'>
               {captialize(categoryName)}
             </a>
           </Link>

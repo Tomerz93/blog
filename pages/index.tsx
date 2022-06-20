@@ -30,14 +30,15 @@ const Home = ({
             src={featuredPost.image}
             width={1200}
             height={500}
-            loading='lazy'
             alt='featured-img'
+            priority
           />
           <div className='flex justify-between items-center'>
-            <div className='flex'>
-              {featuredPost?.categories?.map((c) => (
-                <Category key={c} slug={c} />
-              ))}
+            <div className='my-2'>
+              <Category
+                key={featuredPost?.category}
+                slug={featuredPost?.category}
+              />
             </div>
             <span className='mt-2'>
               {formatDateShort(featuredPost?.createdAt)}

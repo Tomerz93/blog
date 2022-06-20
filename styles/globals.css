@@ -20,7 +20,7 @@
   --fs-100: 0.75rem;
 
   /* font family  */
-  --sans-serif: 'Roboto', sans-serif;
+  --sans-serif: system-ui, sans-serif;
   --heading: 'Oswald', sans-serif;
 
   --spacing-1: 5px;
@@ -132,6 +132,7 @@ a.active {
   transition: background-color 0.3s ease-out, border 0.3s ease-out 0.3s;
   border-radius: var(--spacing-2);
   border: 2px solid transparent;
+  block-size: 100%;
 }
 .preview-container:hover {
   background-color: rgb(33 36 50);
@@ -142,13 +143,29 @@ pre code.hljs {
   margin-block-end: 1rem;
   background-color: rgb(59, 60, 74);
 }
+article p {
+  font-size: 1.2rem;
+  color: rgb(226, 226, 226);
+}
+article p:where(:not(:last-child)) {
+  margin-bottom: var(--spacing-4);
+}
 
-#__next {
+body > div:first-child,
+div#__next,
+div#__next {
   height: 100%;
   display: grid;
-  grid: auto 1fr auto/auto;
+  gap: 1rem;
+  grid-template-rows: auto 1fr auto;
 }
 
 footer {
+  background: hsl(231, 30%, 15%);
+  padding-block: 2rem;
   margin-top: auto;
+}
+
+.post-preview-container-small {
+  grid-template-columns: repeat(2, minmax(0px, max(150px, 250px)));
 }
