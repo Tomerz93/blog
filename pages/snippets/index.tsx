@@ -6,6 +6,7 @@ import { useRouter } from 'next/router';
 import { allSnippets } from '.contentlayer/generated';
 import { pick } from 'contentlayer/client';
 import { groupBy } from 'lib/utils';
+import { PageTitle } from 'components';
 
 export async function getStaticProps() {
   const filteredSnippets = allSnippets.map((snippet) =>
@@ -47,29 +48,32 @@ const SnippetsScreen = ({
           content='useful snippets you can use in your project'
         />
       </Head>
-      <div className='container grid grid-cols-2 gap-4 mb-4'>
-        <div>
-          {Object.keys(snippet).map((language) => (
-            <>
-              {
-                <Link shallow href={`/snippets?type=${language}`}>
-                  <a className='block'>{language}</a>
-                </Link>
-              }
-            </>
-          ))}
-        </div>
-        {
+      <div className='container'>
+        <PageTitle text='Snippets' />
+        <div className='grid grid-cols-2 gap-4 mb-4'>
           <div>
-            {currentActive.map(({ name }) => (
-              <Link className='block' href={`/snippets/${name}`} key={name}>
-                <a className='block text-blue-600 border-l-indigo-800'>
-                  {name}
-                </a>
-              </Link>
+            {Object.keys(snippet).map((language) => (
+              <>
+                {
+                  <Link shallow href={`/snippets?type=${language}`}>
+                    <a className='block'>{language}</a>
+                  </Link>
+                }
+              </>
             ))}
           </div>
-        }
+          {
+            <div>
+              {currentActive.map(({ name }) => (
+                <Link className='block' href={`/snippets/${name}`} key={name}>
+                  <a className='block text-blue-600 border-l-indigo-800'>
+                    {name}
+                  </a>
+                </Link>
+              ))}
+            </div>
+          }
+        </div>
       </div>
     </>
   );

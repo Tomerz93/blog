@@ -42,7 +42,10 @@ export const Post = defineDocumentType(() => ({
       required: false,
       default: false
     },
-
+    category: {
+      type: 'string',
+      required: true,
+    }
   },
   computedFields
 }));

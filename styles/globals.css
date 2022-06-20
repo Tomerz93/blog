@@ -1,25 +1,13 @@
 @import url('https://fonts.googleapis.com/css2?family=Oswald:wght@300;400&family=Roboto:wght@300;400;500&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-
-@layer base {
-  h1 {
-    @apply text-2xl;
-  }
-  h2 {
-    @apply text-xl;
-  }
-  h3 {
-    @apply text-xl;
-  }
-}
 
 :root {
   --blue: hsl(223, 62%, 34%);
   --dark-blue: hsl(231, 30%, 8%);
   --bg: var(--dark-blue);
-
   /* font-sizes */
   --fs-900: 1.802rem;
   --fs-800: 1.602rem;
@@ -47,18 +35,23 @@
 
   --border-sm: 5px;
 }
+html {
+  height: 100%;
+}
 
 html,
 body {
   padding: 0;
   margin: 0;
-  min-height: 100vh;
   font-family: var(--sans-serif);
   font-weight: 400;
   line-height: 1.3;
   color: var(--text-white);
   background-color: var(--bg);
   box-sizing: border-box;
+}
+body {
+  height: 100%;
 }
 
 h1,
@@ -73,9 +66,7 @@ p {
   margin: 0;
   font-weight: 400;
 }
-p {
-  max-inline-size: 65ch;
-}
+
 ul {
   padding: 0;
   margin: 0;
@@ -114,20 +105,6 @@ button {
   font-family: inherit;
   font-size: inherit;
 }
-.horizontal-scroll-container {
-  --img-size: 150px;
-  gap: 1rem;
-  display: grid;
-  grid-auto-flow: column;
-  overflow-x: scroll;
-  overscroll-behavior-inline: contain;
-  scroll-snap-type: inline mandatory;
-  margin: 0;
-}
-.horizontal-scroll-container a {
-  inline-size: 250px;
-}
-
 .container {
   inline-size: min(calc(100% - var(--spacing-6)), 60rem);
   margin-inline: auto;
@@ -139,14 +116,17 @@ header li {
 }
 header li:hover {
   border-bottom: 1px solid rgb(59 130 246);
-  color: rgb(59 130 246);
+  color: #fff;
 }
 header li a {
   width: 100%;
+  color: rgb(212, 212, 212);
 }
 a.active {
-  color: rgb(59 130 246);
+  color: white;
+  font-weight: bold;
 }
+
 .preview-container {
   cursor: pointer;
   transition: background-color 0.3s ease-out, border 0.3s ease-out 0.3s;
@@ -155,17 +135,6 @@ a.active {
 }
 .preview-container:hover {
   background-color: rgb(33 36 50);
-  animation: float 6s ease-in-out infinite alternate;
-  border: 2px solid orange;
-}
-
-@keyframes float {
-  50% {
-    transform: translateY(5px);
-  }
-  100% {
-    transform: translateY(-5px);
-  }
 }
 
 pre code.hljs {
@@ -173,10 +142,13 @@ pre code.hljs {
   margin-block-end: 1rem;
   background-color: rgb(59, 60, 74);
 }
+
 #__next {
-  /* display: grid; */
-  /* grid-template-rows: min-content auto min-content; */
+  height: 100%;
+  display: grid;
+  grid: auto 1fr auto/auto;
 }
+
 footer {
-  /* background: white; */
+  margin-top: auto;
 }

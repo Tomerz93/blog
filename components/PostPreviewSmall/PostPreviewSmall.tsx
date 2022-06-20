@@ -1,3 +1,4 @@
+import Image from 'next/image';
 import Link from 'next/link';
 
 interface PostPreviewSmallProps {
@@ -12,12 +13,16 @@ const PostPreviewSmall: React.FC<PostPreviewSmallProps> = ({
   image,
 }) => (
   <Link href={`/posts/${slug}`}>
-    <div>
-      <div>
-        <img width={300} src={image} alt={`${title}-image`} />
-      </div>
+    <a>
+      <Image
+        className='rounded-md'
+        width={250}
+        height={200}
+        src={image}
+        alt={`${title}-image`}
+      />
       <h4 className='text-lg'>{title}</h4>
-    </div>
+    </a>
   </Link>
 );
 

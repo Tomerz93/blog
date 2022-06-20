@@ -1,7 +1,7 @@
-import { PageTitle, PostPreview } from 'components';
+import type { InferGetStaticPropsType } from 'next';
 import { allPosts } from 'contentlayer/generated';
+import { PageTitle, PostPreview } from 'components';
 import { getSortedPosts } from 'lib/post';
-import { InferGetStaticPropsType } from 'next';
 
 export async function getStaticProps() {
   const sortedPosts = getSortedPosts(allPosts);

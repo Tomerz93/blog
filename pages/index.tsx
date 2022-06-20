@@ -1,10 +1,10 @@
 import Head from 'next/head';
 import Link from 'next/link';
 import Image from 'next/image';
+import type { InferGetStaticPropsType } from 'next';
 import { allPosts } from 'contentlayer/generated';
 import { Category, PageTitle, PostPreview } from 'components';
 import { formatDateShort } from 'lib/utils';
-import { InferGetStaticPropsType } from 'next';
 import { getPostsWithFeatured, getSortedPosts } from 'lib/post';
 
 export async function getStaticProps() {

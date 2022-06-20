@@ -11,17 +11,14 @@ interface Props {
 
 const PostPreview: React.FC<Props> = ({ slug, createdAt, title, image }) => {
   return (
-    <div className='preview-container py-2'>
+    <div className='preview-container pb-2'>
       <Link
         as={`/posts/${slug}`}
         href={`/posts/${slug}`}
         className='post-preview-container'
       >
-        <div>
-          <div
-            className='rounded-md'
-            style={{ maxWidth: 'calc(60rem - var(--spacing-2))' }}
-          >
+        <a>
+          <div className='rounded-md'>
             <Image
               className='rounded-md'
               src={image}
@@ -37,7 +34,7 @@ const PostPreview: React.FC<Props> = ({ slug, createdAt, title, image }) => {
             </span>
             <span className='cursor-pointer'>Read</span>
           </div>
-        </div>
+        </a>
       </Link>
     </div>
   );

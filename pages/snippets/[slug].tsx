@@ -1,6 +1,7 @@
 import Head from 'next/head';
 import { allSnippets, Snippet } from 'contentlayer/generated';
 import { useMDXComponent } from 'next-contentlayer/hooks';
+import { useCopyToClipboard } from 'hooks/useCopyfromClipBoard';
 
 export const getStaticPaths = async () => {
   const paths = allSnippets.map((snippet) => snippet.url);
@@ -28,6 +29,7 @@ export const getStaticProps = ({ params }: { params: { slug: string } }) => {
 
 const SnippetLayout = ({ snippet }: { snippet: Snippet | null }) => {
   const MDXContent = useMDXComponent(snippet ? snippet?.body.code : '');
+  const { status, copyText } = useCopyToClipboard(300);
   return (
     <>
       <Head>
