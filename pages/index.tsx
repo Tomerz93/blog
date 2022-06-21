@@ -48,8 +48,8 @@ const Home = ({
           <p className='mb-8'>{featuredPost?.excerpt}</p>
         </div>
       </Link>
-      <h3>Posts</h3>
-      <div className='grid grid-cols-2 gap-5 rounded-md'>
+      <h3 className='text-2xl mb-4'>Posts</h3>
+      <div className='grid md:grid-cols-2 gap-5 rounded-md'>
         {posts.map((p) => (
           <PostPreview
             {...p}

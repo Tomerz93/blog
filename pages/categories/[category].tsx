@@ -1,7 +1,8 @@
 import { allPosts, type Post } from '.contentlayer/generated';
-import { PostPreview } from 'components';
+import { PageDescription, PageMeta, PostPreview } from 'components';
 import { getPostsByCategory } from 'lib/post';
-import { InferGetStaticPropsType } from 'next';
+import { capitalize } from 'lib/utils';
+import { useRouter } from 'next/router';
 
 export const getStaticPaths = () => {
   const paths = allPosts.map((post) => ({
@@ -9,7 +10,7 @@ export const getStaticPaths = () => {
   }));
   return {
     paths,
-    fallback: false,
+    fallback: true,
   };
 };
 
@@ -27,19 +28,31 @@ export const getStaticProps = ({
 };
 
 const CategoryScreen = ({ posts }: { posts: Post[] }) => {
+  const { query } = useRouter();
+  const { category } = query;
   return (
-    <div className='container'>
-      <div className='grid grid-cols-2 gap-5 rounded-md'>
-        {posts.map((p) => (
-          <PostPreview
-            {...p}
-            key={p.title}
-            image={p.image}
-            createdAt={p.createdAt}
-          />
-        ))}
+    <>
+      <PageMeta
+        title={`${capitalize(category)} Related Posts`}
+        description={`${category} Related Posts`}
+      />
+      <div className='container'>
+        <PageDescription
+          description={`${capitalize(category)} Related Posts`}
+          pageTitle={`${capitalize(category)}`}
+        />
+        <div className='grid grid-cols-2 gap-5 rounded-md'>
+          {posts.map((p) => (
+            <PostPreview
+              {...p}
+              key={p.title}
+              image={p.image}
+              createdAt={p.createdAt}
+            />
+          ))}
+        </div>
       </div>
-    </div>
+    </>
   );
 };
 export default CategoryScreen;

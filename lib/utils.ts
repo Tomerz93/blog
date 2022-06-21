@@ -14,6 +14,8 @@ const groupBy = <T extends { [key: string]: any }>(array: T[], propName: keyof T
     }, {} as { [key: string]: T[] })
 }
 
+const capitalize = (text: string) =>
+    `${text.slice(0, 1).toUpperCase()}${text.slice(1)}`;
 
 
-export { removeExtension as removeExtenstion, groupBy, formatDateShort }
+export { removeExtension, capitalize, groupBy, formatDateShort }

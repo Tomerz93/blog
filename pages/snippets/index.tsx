@@ -1,16 +1,16 @@
 import React from 'react';
-import Head from 'next/head';
 import Link from 'next/link';
 import { InferGetStaticPropsType } from 'next';
 import { useRouter } from 'next/router';
 import { allSnippets } from '.contentlayer/generated';
 import { pick } from 'contentlayer/client';
 import { groupBy } from 'lib/utils';
-import { PageTitle } from 'components';
+import { PageDescription, PageMeta } from 'components';
+import cx from 'classnames';
 
 export async function getStaticProps() {
   const filteredSnippets = allSnippets.map((snippet) =>
-    pick(snippet, ['name', 'lang'])
+    pick(snippet, ['name', 'lang', 'description'])
   );
   const snippet = groupBy<typeof filteredSnippets[number]>(
     filteredSnippets,
@@ -35,39 +35,63 @@ const SnippetsScreen = ({
     const { type } = router.query || { type: '' };
     // make typescript happy
     if (Array.isArray(type)) return;
-    if (type && snippet[type]) setActiveCategory(type);
+    if ((type && snippet[type]) || type === 'all') setActiveCategory(type);
   }, [router.isReady, router.query, snippet]);
 
   const { [activeCategory]: currentActive } = snippet;
+  const displayedSnippets =
+    activeCategory === 'all' ? Object.values(snippet).flat() : currentActive;
+  const getIsActive = (category: string) =>
+    cx({
+      active: activeCategory === category,
+      inactive: activeCategory !== category,
+      'snippet-category-link': true,
+    });
+
   return (
     <>
-      <Head>
-        <title>Snippets Page</title>
-        <meta
-          name='description'
-          content='useful snippets you can use in your project'
-        />
-      </Head>
+      <PageMeta
+        title='Snippets Page'
+        description="Snippets that you can copy and paste and use in your project if you'd like"
+      />
       <div className='container'>
-        <PageTitle text='Snippets' />
-        <div className='grid grid-cols-2 gap-4 mb-4'>
-          <div>
-            {Object.keys(snippet).map((language) => (
+        <PageDescription
+          pageTitle='Snippets'
+          description="Snippets that you can copy and paste and use in your project if
+            you'd like"
+        />
+        <div className='text-center'>
+          <div className='flex gap-4 uppercase mb-4 justify-center md:justify-start'>
+            <Link shallow href={`/snippets?type=all`}>
+              <a className={getIsActive('all')}>all</a>
+            </Link>
+            {Object.keys({ ...snippet }).map((language) => (
               <>
                 {
                   <Link shallow href={`/snippets?type=${language}`}>
-                    <a className='block'>{language}</a>
+                    <a className={getIsActive(language)}>{language}</a>
                   </Link>
                 }
               </>
             ))}
           </div>
           {
-            <div>
-              {currentActive.map(({ name }) => (
+            <div className='grid md:grid-cols-3 gap-4'>
+              {displayedSnippets.map(({ name, lang, description }) => (
                 <Link className='block' href={`/snippets/${name}`} key={name}>
-                  <a className='block text-blue-600 border-l-indigo-800'>
-                    {name}
+                  <a
+                    style={{
+                      background: 'hsl(231, 30%, 15%)',
+                    }}
+                    className='transition-[border] block p-4 border-transparent rounded-md hover:border-orange-300 border-2'
+                  >
+                    <div className='flex justify-between'>
+                      <b style={{ fontFamily: 'oswald' }} className='text-2xl'>
+                        {name}
+                      </b>
+                      {activeCategory === 'all' && <span>{lang}</span>}
+                    </div>
+                    <p className='mt-1 text-left'>{description}</p>
                   </a>
                 </Link>
               ))}

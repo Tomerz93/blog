@@ -1,6 +1,7 @@
 ---
 lang: 'css'
 name: 'container'
+description: modern css container
 ---
 
 ```css
@@ -9,3 +10,6 @@ name: 'container'
   inline-size: min(100% - var(--spacing-1), 980px);
 }
 ```
+
+This is a really smiple snippet to give you a responsive container.
+inline-size is a logical property that means width, when using the min function the browser will try to take the smallest value possible so on mobile 980px is larger than the entire viewport the browser will teake 100% of the entrie screen minus the variable spacing and on larger screens when the viewports goes over 980px it becomes the smaller of the two values to the browser will take 980px as the minimum value

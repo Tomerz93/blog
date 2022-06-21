@@ -59,6 +59,10 @@ export const Snippet = defineDocumentType(() => ({
       type: 'string',
       required: true
     },
+    description: {
+      type: 'string',
+      required: true,
+    },
     name: {
       type: 'string',
       required: true

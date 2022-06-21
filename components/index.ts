@@ -1,5 +1,7 @@
 export { default as Category } from './Category/Category'
 export { default as PageTitle } from './PageTitle/PageTitle'
+export { default as PageDescription } from './PageDescription/PageDescription'
+export { default as PageMeta } from './PageMeta/PageMeta'
 export { default as PostPreview } from './PostPreview/PostPreview'
 export { default as PostPreviewSmall } from './PostPreviewSmall/PostPreviewSmall'
 export { default as Header } from './Header/Header'

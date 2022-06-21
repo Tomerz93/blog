@@ -1,12 +1,9 @@
-// import invariant from 'tiny-invariant';
-import { getAllPostsByCategory } from '../../lib/post';
-import { PageTitle, PostPreview, PostPreviewSmall } from 'components';
+import { InferGetStaticPropsType } from 'next';
 import Link from 'next/link';
 import { allPosts } from 'contentlayer/generated';
-import { InferGetStaticPropsType } from 'next';
-
-const captialize = (text: string) =>
-  `${text.slice(0, 1).toUpperCase()}${text.slice(1)}`;
+import { getAllPostsByCategory } from '../../lib/post';
+import { capitalize } from 'lib/utils';
+import { PageDescription, PageMeta, PostPreview } from 'components';
 
 export const getStaticProps = () => {
   const categoryMap = getAllPostsByCategory(allPosts);
@@ -19,15 +16,22 @@ export const getStaticProps = () => {
 
 const Categories = ({
   categoryMap,
-}: InferGetStaticPropsType<typeof getStaticProps>) => {
-  return (
+}: InferGetStaticPropsType<typeof getStaticProps>) => (
+  <>
+    <PageMeta
+      title='categories'
+      description='All posts by ordered by categories'
+    />
     <div className='container'>
-      <PageTitle text='Categories' />
+      <PageDescription
+        pageTitle='categories'
+        description='All posts by ordered by categories'
+      />
       {Object.entries(categoryMap).map(([categoryName, posts]) => (
         <div key={categoryName}>
           <Link href={`/categories/${categoryName}`}>
-            <a className='text-center md:text-left text-xl mb-4 block'>
-              {captialize(categoryName)}
+            <a className='text-center md:text-left text-2xl mb-4 block'>
+              {capitalize(categoryName)}
             </a>
           </Link>
           <div
@@ -41,7 +45,7 @@ const Categories = ({
         </div>
       ))}
     </div>
-  );
-};
+  </>
+);
 
 export default Categories;

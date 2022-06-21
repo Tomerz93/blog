@@ -1,6 +1,6 @@
 import type { InferGetStaticPropsType } from 'next';
 import { allPosts } from 'contentlayer/generated';
-import { PageTitle, PostPreview } from 'components';
+import { PageDescription, PageMeta, PostPreview } from 'components';
 import { getSortedPosts } from 'lib/post';
 
 export async function getStaticProps() {
@@ -10,10 +10,17 @@ export async function getStaticProps() {
 
 const PostsScreen = ({
   posts,
-}: InferGetStaticPropsType<typeof getStaticProps>) => {
-  return (
+}: InferGetStaticPropsType<typeof getStaticProps>) => (
+  <>
+    <PageMeta
+      title='Posts'
+      description='All of the blog posts are available on this page'
+    />
     <div className='container'>
-      <PageTitle text='posts' />
+      <PageDescription
+        pageTitle='Posts'
+        description='All of the blog posts are available on this page'
+      />
       <div className='grid grid-cols-2 gap-5 rounded-md'>
         {posts.map((p) => (
           <PostPreview
@@ -25,6 +32,7 @@ const PostsScreen = ({
         ))}
       </div>
     </div>
-  );
-};
+  </>
+);
+
 export default PostsScreen;

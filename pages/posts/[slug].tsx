@@ -1,10 +1,9 @@
-import Head from 'next/head';
 import Image from 'next/image';
 import { format, parseISO } from 'date-fns';
 import { allPosts, Post } from 'contentlayer/generated';
 import { useMDXComponent } from 'next-contentlayer/hooks';
-import { removeExtenstion } from 'lib/utils';
-import { PageTitle, PostPreviewSmall } from 'components';
+import { capitalize, removeExtension } from 'lib/utils';
+import { PageTitle, PostPreviewSmall, PageMeta } from 'components';
 import { getBlogRecommendations } from 'lib/post';
 
 export async function getStaticPaths() {
@@ -17,7 +16,7 @@ export async function getStaticPaths() {
 
 export async function getStaticProps({ params }: { params: { slug: string } }) {
   const post = allPosts.find(
-    (post) => removeExtenstion(post.slug, 'mdx') === params.slug
+    (post) => removeExtension(post.slug, 'mdx') === params.slug
   );
   const recommendedPosts = post ? getBlogRecommendations(allPosts, post) : [];
   return {
@@ -46,16 +45,18 @@ interface PostProps {
   recommendedPosts: Post[];
 }
 
-const PostHeader = ({ post }: { post: Post }) => {
+const PostHeader = ({
+  post: { createdAt, title, category },
+}: {
+  post: Post;
+}) => {
   return (
-    <div className='text-center lg:text-left mb-8 border-b-emerald-700  border-b-2'>
-      <time
-        dateTime={post.createdAt}
-        className='text-s text-gray-600 block mb-1'
-      >
-        {format(parseISO(post.createdAt), 'LLLL d, yyyy')}
+    <div className='text-center lg:text-left mb-8 border-orange-300  border-b-2'>
+      <time dateTime={createdAt} className='text-s text-gray-400 mb-1'>
+        {format(parseISO(createdAt), 'LLLL d, yyyy')},{' '}
       </time>
-      <PageTitle isUppercase={false} text={post.title} />
+      <span className='text-gray-400'>{capitalize(category)}</span>
+      <PageTitle isUppercase={false} text={title} />
     </div>
   );
 };
@@ -64,9 +65,7 @@ const PostLayout: React.FC<PostProps> = ({ post, recommendedPosts }) => {
   const MDXContent = useMDXComponent(post.body.code);
   return (
     <>
-      <Head>
-        <title>{post.title}</title>
-      </Head>
+      <PageMeta title={post.title} />
       <article className='container'>
         <PostHeader post={post} />
         <MDXContent components={{ ...components }} />
