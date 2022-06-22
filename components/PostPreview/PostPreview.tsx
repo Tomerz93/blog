@@ -23,13 +23,13 @@ const PostPreview: React.FC<Props> = ({ slug, createdAt, title, image }) => {
               className='rounded-md'
               src={image}
               height={300}
-              width={500}
+              width={550}
               alt={'post-image'}
             />
           </div>
           <div className='ml-2 mt-2'>
             <h3 className='text-2xl'>{title}</h3>
-            <span className='text-gray-300 text-sm block mb-5'>
+            <span className='text-sm block mb-5'>
               {formatDateShort(createdAt)}
             </span>
             <span className='cursor-pointer'>Read</span>

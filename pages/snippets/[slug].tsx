@@ -30,7 +30,7 @@ const SnippetLayout = ({ snippet }: { snippet: Snippet | null }) => {
   const MDXContent = useMDXComponent(snippet ? snippet?.body.code : '');
   return (
     <>
-      <PageMeta title={snippet?.name} description={snippet?.description} />
+      <PageMeta title={snippet?.name ?? 'not found'} description={snippet?.description} />
       <article className='container'>
         <h1 className='text-3xl mb-4'>{snippet?.name}</h1>
         <MDXContent />

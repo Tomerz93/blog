@@ -49,7 +49,7 @@ const Home = ({
         </div>
       </Link>
       <h3 className='text-2xl mb-4'>Posts</h3>
-      <div className='grid md:grid-cols-2 gap-5 rounded-md'>
+      <div className='grid md:grid-cols-2 gap-8 rounded-md'>
         {posts.map((p) => (
           <PostPreview
             {...p}

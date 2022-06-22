@@ -2,7 +2,7 @@ import Link from 'next/link';
 import { useRouter } from 'next/router';
 import React, { type PropsWithChildren } from 'react';
 import cx from 'classnames';
-
+import { ThemeToggle } from '../';
 interface ActiveLinkProps {
   href: string;
 }
@@ -26,7 +26,7 @@ const ActiveLink: React.FC<PropsWithChildren<ActiveLinkProps>> = ({
 
 const Header = () => (
   <header className='container'>
-    <nav>
+    <nav className='flex justify-between items-center'>
       <ul className='flex gap-4 py-4'>
         <li>
           <ActiveLink href='/'>Home</ActiveLink>
@@ -41,6 +41,7 @@ const Header = () => (
           <ActiveLink href={'/snippets'}>Snippets</ActiveLink>
         </li>
       </ul>
+      <ThemeToggle />
     </nav>
   </header>
 );

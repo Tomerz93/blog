@@ -1,4 +1,4 @@
-import { allPosts, type Post } from '.contentlayer/generated';
+import { allPosts, type Post } from 'contentlayer/generated';
 import { PageDescription, PageMeta, PostPreview } from 'components';
 import { getPostsByCategory } from 'lib/post';
 import { capitalize } from 'lib/utils';
@@ -29,20 +29,21 @@ export const getStaticProps = ({
 
 const CategoryScreen = ({ posts }: { posts: Post[] }) => {
   const { query } = useRouter();
-  const { category } = query;
+  const { category } = query
+  const formattedCategory = typeof category !=='string'? 'not found': category
   return (
     <>
       <PageMeta
-        title={`${capitalize(category)} Related Posts`}
+        title={`${capitalize(formattedCategory)} Related Posts`}
         description={`${category} Related Posts`}
       />
       <div className='container'>
         <PageDescription
-          description={`${capitalize(category)} Related Posts`}
-          pageTitle={`${capitalize(category)}`}
+          description={`${capitalize(formattedCategory)} Related Posts`}
+          pageTitle={`${capitalize(formattedCategory)}`}
         />
         <div className='grid grid-cols-2 gap-5 rounded-md'>
-          {posts.map((p) => (
+          {posts?.map((p) => (
             <PostPreview
               {...p}
               key={p.title}

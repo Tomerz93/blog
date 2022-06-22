@@ -2,7 +2,7 @@ import React from 'react';
 import Link from 'next/link';
 import { InferGetStaticPropsType } from 'next';
 import { useRouter } from 'next/router';
-import { allSnippets } from '.contentlayer/generated';
+import { allSnippets } from 'contentlayer/generated';
 import { pick } from 'contentlayer/client';
 import { groupBy } from 'lib/utils';
 import { PageDescription, PageMeta } from 'components';
@@ -79,14 +79,9 @@ const SnippetsScreen = ({
             <div className='grid md:grid-cols-3 gap-4'>
               {displayedSnippets.map(({ name, lang, description }) => (
                 <Link className='block' href={`/snippets/${name}`} key={name}>
-                  <a
-                    style={{
-                      background: 'hsl(231, 30%, 15%)',
-                    }}
-                    className='transition-[border] block p-4 border-transparent rounded-md hover:border-orange-300 border-2'
-                  >
+                  <a className='snippet-card-container'>
                     <div className='flex justify-between'>
-                      <b style={{ fontFamily: 'oswald' }} className='text-2xl'>
+                      <b className='text-2xl text-slate-800 dark:text-amber-50 fs-oswald'>
                         {name}
                       </b>
                       {activeCategory === 'all' && <span>{lang}</span>}
