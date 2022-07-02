@@ -38,6 +38,26 @@ const components = {
       />
     );
   },
+  h3: (props: any) => {
+    return (
+      <h3 className='border-b-2 border-orange-300 inline-block pb-3' {...props}>
+        {props.children}
+      </h3>
+    );
+  },
+  a: (props: any) => {
+    return (
+      <a
+        className='underline md:no-underline md:hover:underline'
+        href={props.href}
+        target='_blank'
+        rel='noopener noreferrer'
+        {...props}
+      >
+        {props.children}
+      </a>
+    );
+  },
 };
 
 interface PostProps {

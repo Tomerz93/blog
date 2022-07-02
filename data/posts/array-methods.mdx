@@ -1,0 +1,190 @@
+---
+title: The Definitive Guide to Helpful Array Methods
+excerpt: This is article is about various helpful array methods in JavaScript.
+image: https://images.pexels.com/photos/4164418/pexels-photo-4164418.jpeg?auto=format&fit=crop&w=1280&q=80
+createdAt: 2022-06-27
+category: development
+isFeatured: false
+---
+
+In This article I'd like to go over a couple of handful array methods with, their use cases.
+
+### Array.map
+
+```ts
+const nums = [1, 2, 3, 4, 5];
+const numsSquared = nums.map((num) => num * num);
+// [1, 4, 9, 16, 25]
+```
+
+Map is a super helpful method for taking an array, iterating over each of the elements and returning an element for each item in the array.
+In the previous example we can see that we get an array of the squares of the numbers in the original array.
+
+Array.map accepts a callback function that is called for each element in the array.
+The callback function is called with the current element as the first argument and the index of the element as the second argument.
+In the code example above I used an anonymous function to pass the callback function, but of course we can also use a named functions instead. the arguments get passed automatically to the callback function.
+
+```ts
+// takes a callback that gets (value, index, array)
+const squareNums = (num) => num * num;
+const nums = [1, 2, 3, 4, 5];
+const numsSquared = nums.map(squareNums);
+// [1, 4, 9, 16, 25]
+```
+
+In my experience map is helpful for situations were you need to take an array and return a modified array with equal length. In react for example we often use map to take data and return a list of components or elements.
+
+```tsx
+const people = [
+  { name: 'John', age: 20 },
+  { name: 'Jane', age: 21 },
+  { name: 'Joe', age: 22 },
+];
+
+const PeopleList: React.FC = () => (
+  <ul>
+    {people.map((person, index) => (
+      <li key={index}>{person.name}</li>
+    ))}
+  </ul>
+);
+```
+
+### Array.filter
+
+```ts
+// takes a callback that gets (value, index, array)
+const nums = [1, 2, 3, 4, 5];
+const evenNums = nums.filter((num) => num % 2 === 0);
+// [2, 4]
+```
+
+Array.filter is a helpful array method for filtering an array based on a condition.
+In the example above we can see that we get an array of the even numbers in the original array. the callback that gets passed to filter needs to return a valid JS condition, if the condition is truthy the value will get returned to the filtered array and if not the value will not get returned to the filtered array.
+That is why in the example above we can see that we get an array consisting of 2 items [2,4] which are the only even numbers in the original array.
+
+### Array.find and Array.findIndex
+
+```ts
+// takes a callback that gets (value, index, array)
+
+const dogs = [
+  { breed: 'shiba', size: 'medium' },
+  { breed: 'poodle', size: 'large' },
+  { breed: 'pug', size: 'small' },
+];
+const pug = dogs.find((dog) => dog.breed === 'pug');
+// {breed:'pug',size:'large'}
+
+const shibaIndex = dogs.findIndex((dog) => dog.breed === 'shiba');
+// 0
+```
+
+As other methods mentioned above find and findIndex accept a callback function that is called for each element in the array.if the callback function returns a truthy value the element will be returned for Array.find and the index of the element for Array.findIndex
+The cool thing about find and findIndex is that if the item is found in the array the function would immediately return the item and the index of the item. meaning that it won't iterate over the entire array. that also means if there are duplicated value in the array the find method will return the first item that matches the condition.
+
+```ts
+const dishes = [
+  { name: 'salad', rating: 5 },
+  { name: 'pizza', rating: 7 },
+  { name: 'soup', rating: 8 },
+  { name: 'pizza', rating: 9 },
+];
+const pizza = dishes.find((dish) => dish.name === 'pizza');
+// {name:'pizza',rating:7}
+const pizzaIndex = dishes.findIndex((dish) => dish.name === 'pizza');
+// 1
+```
+
+if the element is not found in the array Array.find will return undefined and Array.findIndex will return -1.
+
+```ts
+const dogs = [
+  { breed: 'shiba', size: 'medium' },
+  { breed: 'poodle', size: 'large' },
+  { breed: 'pug', size: 'small' },
+];
+const husky = dogs.find((dog) => dog.breed === 'husky');
+// undefined
+const huskyIndex = dogs.findIndex((dog) => dog.breed === 'husky');
+// -1
+```
+
+### Array.some and Array.every
+
+```ts
+// takes a callback that gets (value, index, array)
+const nums = [1, 2, 3, 4, 5];
+const isEven = nums.every((num) => num % 2 === 0);
+// false
+```
+
+Array.every will check if all the elements in the array match the condition. if one of the elements doesn't match the condition every will break early and return false, if all elements of the array return a truthy value every will return true.
+
+```ts
+const nums = [12, 20, 30, 40, 25];
+const areAllItemsLargerThanTen = nums.every((num) => num > 10);
+// true
+```
+
+Array.some is similar to Array.every but it will return true if one of the elements returns a truthy value.
+
+```ts
+const people = [
+  { name: 'John', age: 16 },
+  { name: 'Jane', age: 18 },
+  { name: 'Joe', age: 15 },
+];
+const canSomeoneDrive = people.some((person) => person.age > 17);
+// true
+```
+
+### Array.reduce
+
+```ts
+// takes a callback that gets (accumulator, value, index, array)
+const nums = [1, 2, 3, 4, 5];
+const sum = nums.reduce((acc, num) => acc + num);
+// 15
+```
+
+Array.reduce is in my opinion the most powerful array method available in JS.
+It takes an array and a callback function and reduces the array to a single value.
+reduce takes a callback function as the first parameter which gets the current value of the accumulator and the item, the second parameter is the initial value of the accumulator which defaults to undefined if no initial value is provided.
+
+Array.reduce is super powerful because depending on the implementation it can act very similar to other array methods like map, filter.
+
+```ts
+const nums = [1, 2, 3, 4, 5];
+const doubleNumsArray = nums.reduce((acc, num) => [...acc, num * 2], []);
+const onlyEvenNums = nums.reduce(
+  (acc, num) => (num % 2 === 0 ? [...acc, num] : acc),
+  []
+);
+// [2,4]
+```
+
+Array.reduce can also help with improving the performance of your loop for example given the next code:
+
+```ts
+const nums = [1, 2, 3, 4, 5];
+const doubledAndEvenNums = nums
+  .filter((num) => num % 2 === 0)
+  .map((num) => num * 2);
+```
+
+in JS you can chain this method calls which makes it really easy to transform values, and for this specific example this is fine but if this was a really large array you would want to save finish the transformation in one iteration if possible. Array.reduce can help with that.
+
+```ts
+const nums = [1, 2, 3, 4, 5];
+const doubledAndEvenNumsUsingReduce = nums.reduce(
+  (acc, num) => (num % 2 === 0 ? [...acc, num * 2] : acc),
+  []
+);
+```
+
+### How to chosoe which method to use
+
+In order to find out what array method you need to use in what situation , what I usually do is to ask myself what do I want to do with the array and then I can use the appropriate method. I also ask myself do I need to iterate over the entire array to check if the condition is met or do I need to iterate over the array until I find the element that matches the condition. so I can use the appropriate method.
+
+For Example if I want to take an array and transform its values to a new array with the same length I would use map. if I want to remove items from an array I can use filter etc'.

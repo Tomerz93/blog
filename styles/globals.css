@@ -173,6 +173,25 @@ article p {
   --paragraph-text-color: rgb(212, 212, 212);
   font-size: 1.2rem;
   color: var(--paragraph-text-color);
+  word-break: break-word;
+}
+
+article h1,
+h2,
+h3,
+h4 {
+  margin-block-end: var(--spacing-3);
+}
+article h2 {
+  @apply text-4xl;
+}
+article h3 {
+  @apply text-3xl;
+  margin-block-end: var(--spacing-2);
+}
+article h4 {
+  @apply text-xl;
+  margin-block-end: var(--spacing-2);
 }
 [data-theme='light'] article p {
   --paragraph-text-color: #333;

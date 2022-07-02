@@ -1,0 +1,53 @@
+---
+title: Why you should not use Create react app for your new project
+excerpt: Create React App was a good tool for creating projects in the past but we have better tools these days
+image: https://images.unsplash.com/photo-1613040809024-b4ef7ba99bc3?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1280&q=80
+category: development
+createdAt: 2022-06-23
+isFeatured: true
+---
+
+```shell
+npx create-react-app my-app
+```
+
+I'm sure many react developers are quite familiar with this command. Create React App is the default way of creating a new project in React and even in the current React docs the new docs are still in beta. CRA is mentioned to be the easiest way of creating new react applications. However, we have better tools these days so I would like to share my opinions of better way of bootstrapping react applications. it is important to mention here that I have a lot of respect to the create react app maintainers and I think they did a great job with create react app, creating a react application used to be really difficult and create react app enabled developers everywhere to start a new project with ease.
+
+### Create React App Disadvantages
+
+#### Configuring Create react App is hard
+
+Create React App does a lot of things for you (setting up tests, proxies, webpack setup, etc) but it also has a lot of limitations. The biggest issue with create react app is that it's a black box, its not really configurable, you can't easily change your webpack configurations to add more tools or to tweak the way webpack works in your project, for example adding Tailwind and POST CSS is quite challenging with a create react application.
+
+#### Project gets slower when codebase size increases
+
+In a recent project I was involved in we used create react app for our application but with the application size growing the time it took the project to compile increased significantly. In order to see a change in the screen sometimes we would have to wait a couple of seconds for the browser to refresh.
+
+### Possible solutions with create react App
+
+Use Craco to configure your project
+Craco enables to modify your webpack config without having to eject the project,I haven't tried it myself but I imagine it's a good tool for when you don't want to eject your project and still want to configure your project.
+
+[Craco npm link](https://www.npmjs.com/package/@craco/craco)
+
+## Full stack Alternatives
+
+### Next.Js
+
+Next Js is a full-stack framework for building React applications, it gives you many awesome features such as Server side rendering, Static side rendering, file structure based router, Image optimization, and much more.
+The compiler used in Next JS is built with rust and it's blazing fast. the project refreshes quickly which makes it really easy to work with.
+
+### Remix Run
+
+Remix Run is a new React Framework released by the react router team, so if you are familiar with react router you will feel right at home. Remix run also has many great features such as, server side rendering, nested routes and more.
+I like Remix Runs philosophy of embracing the power of the web and using native API's, Remix Run will help you become a better developer and I love it for it.
+
+### Redwood JS
+
+Redwood JS is a new fullstack framework for react with a powerful CLI , first class graphql support, storybook support and many more awesome features, I still haven't had the chance to work with it but it's defensibly a framework I'd love to try.
+
+## SPA Alterntives
+
+### Vite
+
+Vite is a new build tool created by Evan Yu, it's a SPA framework that uses Esbuild for it's dev server and rollup for its production build. It's a great tool for building SPA applications. it's really fast,configurable and supports various new browser features out of the books. It was originally created for Vue but it works with React as well and it also power some areas of Svelte Kit.

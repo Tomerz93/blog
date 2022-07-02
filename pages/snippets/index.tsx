@@ -32,9 +32,8 @@ const SnippetsScreen = ({
   React.useEffect(() => {
     // useRouter is so the query would get populated after first render so useEffect in needed to set the initial state
     if (!router.isReady) return;
-    const { type } = router.query || { type: '' };
+    const { type } = router.query as { type: string };
     // make typescript happy
-    if (Array.isArray(type)) return;
     if ((type && snippet[type]) || type === 'all') setActiveCategory(type);
   }, [router.isReady, router.query, snippet]);
 
