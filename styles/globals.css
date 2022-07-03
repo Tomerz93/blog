@@ -245,3 +245,7 @@ p {
 [data-theme='light'].snippet-card-container b {
   @apply text-white;
 }
+
+.word-break {
+  word-break: break-word;
+}

@@ -22,7 +22,7 @@ const PostPreviewSmall: React.FC<PostPreviewSmallProps> = ({
         src={image}
         alt={`${title}-image`}
       />
-      <h4 className='text-2xl'>{title}</h4>
+      <h4 className='text-2xl word-break'>{title}</h4>
     </a>
   </Link>
 );
