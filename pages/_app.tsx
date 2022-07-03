@@ -6,7 +6,7 @@ import { Header, Footer } from 'components';
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
-    <ThemeProvider>
+    <ThemeProvider defaultTheme='dark'>
       <Header />
       <main>
         <Component {...pageProps} />
